@@ -22,7 +22,7 @@ from openeo_processes_dask.process_implementations.exceptions import (
     TooManyDimensions,
 )
 
-__all__ = ["aggregate_temporal", "aggregate_temporal_period", "aggregate_spatial"]
+__all__ = ["aggregate_temporal", "aggregate_temporal_period"]
 
 logger = logging.getLogger(__name__)
 
@@ -252,73 +252,3 @@ def aggregate_temporal_period(
         return aggregate_temporal(
             data=data, intervals=intervals, reducer=reducer, labels=labels
         )
-
-
-def aggregate_spatial(
-    data: RasterCube,
-    geometries,
-    reducer: Callable,
-    chunk_size: int = 2,
-) -> VectorCube:
-    x_dim = data.openeo.x_dim
-    y_dim = data.openeo.y_dim
-    DEFAULT_CRS = "EPSG:4326"
-
-    if isinstance(geometries, str):
-        # Allow importing geometries from url (e.g. github raw)
-        import json
-        from urllib.request import urlopen
-
-        response = urlopen(geometries)
-        geometries = json.loads(response.read())
-
-    if isinstance(geometries, dict):
-        # Get crs from geometries
-        if "features" in geometries:
-            for feature in geometries["features"]:
-                if "properties" not in feature:
-                    feature["properties"] = {}
-                elif feature["properties"] is None:
-                    feature["properties"] = {}
-            if isinstance(geometries.get("crs", {}), dict):
-                DEFAULT_CRS = (
-                    geometries.get("crs", {})
-                    .get("properties", {})
-                    .get("name", DEFAULT_CRS)
-                )
-            else:
-                DEFAULT_CRS = int(geometries.get("crs", {}))
-            logger.info(f"CRS in geometries: {DEFAULT_CRS}.")
-
-        if "type" in geometries and geometries["type"] == "FeatureCollection":
-            gdf = gpd.GeoDataFrame.from_features(geometries, crs=DEFAULT_CRS)
-        elif "type" in geometries and geometries["type"] in ["Polygon"]:
-            polygon = shapely.geometry.Polygon(geometries["coordinates"][0])
-            gdf = gpd.GeoDataFrame(geometry=[polygon])
-            gdf.crs = DEFAULT_CRS
-
-    if isinstance(geometries, xr.Dataset):
-        if hasattr(geometries, "xvec"):
-            gdf = geometries.xvec.to_geodataframe()
-
-    if isinstance(geometries, gpd.GeoDataFrame):
-        gdf = geometries
-
-    gdf = gdf.to_crs(data.odc.crs)
-
-    # Convert to list of geometries for better xvec handling
-    geometries_list = list(gdf.geometry.values)
-
-    positional_parameters = {"data": 0}
-
-    # Use the list of geometries directly, addressing potential issues with xvec's zonal_stats expecting list input
-    vec_cube = data.xvec.zonal_stats(
-        geometries_list,  # Now passing list instead of numpy array
-        x_coords=x_dim,
-        y_coords=y_dim,
-        method="iterate",
-        stats=reducer,
-        positional_parameters=positional_parameters,
-    )
-
-    return vec_cube

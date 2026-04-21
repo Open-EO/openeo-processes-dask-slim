@@ -4,7 +4,6 @@ from .apply import *
 from .apply_neighborhood_intertwin import *
 from .general import *
 from .indices import *
-from .load import *
 from .mask import *
 from .merge import *
 from .reduce import *
