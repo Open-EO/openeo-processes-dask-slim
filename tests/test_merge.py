@@ -5,6 +5,7 @@ import numpy as np
 import pytest
 import xarray as xr
 from openeo_pg_parser_networkx.pg_schema import ParameterReference
+
 from openeo_processes_dask_slim.process_implementations import merge_cubes
 from openeo_processes_dask_slim.process_implementations.cubes.merge import (
     NEW_DIM_COORDS,
@@ -13,7 +14,6 @@ from openeo_processes_dask_slim.process_implementations.cubes.merge import (
 from openeo_processes_dask_slim.process_implementations.exceptions import (
     OverlapResolverMissing,
 )
-
 from tests.mockdata import create_fake_rastercube
 
 

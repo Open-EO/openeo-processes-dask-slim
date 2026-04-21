@@ -3,6 +3,7 @@ import logging
 import dask
 import dask.array as da
 import numpy as np
+
 from openeo_processes_dask_slim.process_implementations.cubes.utils import (
     _has_dask,
     _is_dask_array,

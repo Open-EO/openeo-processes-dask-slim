@@ -5,12 +5,12 @@ import numpy as np
 import pytest
 import xarray as xr
 from openeo_pg_parser_networkx.pg_schema import ParameterReference
+
 from openeo_processes_dask_slim.process_implementations.cubes.apply import (
     apply,
     apply_dimension,
     apply_kernel,
 )
-
 from tests.general_checks import assert_numpy_equals_dask_numpy, general_output_checks
 from tests.mockdata import create_fake_rastercube
 

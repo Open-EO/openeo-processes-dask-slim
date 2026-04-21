@@ -18,9 +18,7 @@ from openeo_pg_parser_networkx.pg_schema import (
 from shapely.geometry import Polygon
 
 from openeo_processes_dask_slim.process_implementations.core import process
-from openeo_processes_dask_slim.process_implementations.data_model import (
-    VectorCube,
-)
+from openeo_processes_dask_slim.process_implementations.data_model import VectorCube
 
 logger = logging.getLogger(__name__)
 

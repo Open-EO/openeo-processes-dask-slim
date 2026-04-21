@@ -2,6 +2,7 @@ from typing import Callable, Optional
 
 import numpy as np
 import xarray as xr
+
 from openeo_processes_dask_slim.process_implementations.data_model import RasterCube
 from openeo_processes_dask_slim.process_implementations.exceptions import (
     OverlapResolverMissing,

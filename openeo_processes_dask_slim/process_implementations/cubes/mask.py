@@ -2,6 +2,7 @@ import logging
 from typing import Callable
 
 import numpy as np
+
 from openeo_processes_dask_slim.process_implementations.cubes.resample import (
     resample_cube_spatial,
 )

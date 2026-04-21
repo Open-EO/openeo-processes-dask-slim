@@ -1,6 +1,7 @@
 import dask.array as da
 import numpy as np
 import pytest
+
 from openeo_processes_dask_slim.process_implementations.exceptions import MinMaxSwapped
 from openeo_processes_dask_slim.process_implementations.math import *
 

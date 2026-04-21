@@ -3,6 +3,7 @@ from typing import Any, Callable, Optional
 import numpy as np
 import numpy.typing as npt
 import xarray as xr
+
 from openeo_processes_dask_slim.process_implementations.data_model import RasterCube
 
 __all__ = ["apply_neighborhood_intertwin"]

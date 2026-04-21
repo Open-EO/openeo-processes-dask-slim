@@ -7,6 +7,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from openeo_pg_parser_networkx.pg_schema import ParameterReference
+
 from openeo_processes_dask_slim.process_implementations.arrays import *
 from openeo_processes_dask_slim.process_implementations.cubes.reduce import (
     reduce_dimension,
@@ -16,7 +17,6 @@ from openeo_processes_dask_slim.process_implementations.exceptions import (
     TooManyDimensions,
 )
 from openeo_processes_dask_slim.process_implementations.math import add
-
 from tests.general_checks import general_output_checks
 from tests.mockdata import create_fake_rastercube
 

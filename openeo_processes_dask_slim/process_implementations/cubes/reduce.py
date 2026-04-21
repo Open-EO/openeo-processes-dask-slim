@@ -1,6 +1,7 @@
 from typing import Callable, Optional
 
 import numpy as np
+
 from openeo_processes_dask_slim.process_implementations.data_model import RasterCube
 from openeo_processes_dask_slim.process_implementations.exceptions import (
     DimensionNotAvailable,
