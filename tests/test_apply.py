@@ -482,4 +482,3 @@ def test_apply_dimension_cummin_process(
     ).compute()
 
     assert np.isnan(output_cube_cummin_with_nan[0, 0, 16, 0].values)
-

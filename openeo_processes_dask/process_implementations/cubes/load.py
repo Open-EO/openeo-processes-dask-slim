@@ -265,6 +265,7 @@ def load_stac(
         )
         if not stack.odc.crs:
             import odc.geo.xr
+
             stack = odc.geo.xr.assign_crs(stack, crs=reference_system)
         stack = stack.to_dataarray(dim="bands")
     else:

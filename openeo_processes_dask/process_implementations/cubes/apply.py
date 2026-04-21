@@ -167,5 +167,3 @@ def apply_kernel(
         cval = 0
 
     return convolve(data, kernel, mode, cval, replace_invalid) * factor
-
-
