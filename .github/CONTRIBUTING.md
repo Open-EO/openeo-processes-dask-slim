@@ -113,7 +113,7 @@ To add a new process:
     - create a github fork of this repository
     - Use `git submodule init` and `git submodule update` in your forked repository to update the specifications
     - To specify the submodule explicitely, you can use
-     `git submodule update --remote openeo_processes_dask/specs/openeo-processes/`
+     `git submodule update --remote openeo_processes_dask_slim/specs/openeo-processes/`
     - find more details on submodules [here](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
 - add the implementation in openeo-processes-dask
 - cover the new implementation in the tests
@@ -124,7 +124,7 @@ New implementations can be tested using the local [client-side-processing](https
 
 For backend development, the specifications and implementations can be used to create a process registry, e.g. https://github.com/Open-EO/openeo-pg-parser-networkx/blob/main/examples/01_minibackend_demo.ipynb
 ```
-from openeo_processes_dask.specs import load_collection as load_collection_spec
+from openeo_processes_dask_slim.specs import load_collection as load_collection_spec
 process_registry["load_collection"] = Process(spec=load_collection_spec, implementation=load_collection)
 ```
 

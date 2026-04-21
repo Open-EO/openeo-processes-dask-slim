@@ -3,17 +3,17 @@ from typing import Callable
 
 import numpy as np
 
-from openeo_processes_dask.process_implementations.cubes.resample import (
+from openeo_processes_dask_slim.process_implementations.cubes.resample import (
     resample_cube_spatial,
 )
-from openeo_processes_dask.process_implementations.cubes.utils import notnull
-from openeo_processes_dask.process_implementations.data_model import RasterCube
-from openeo_processes_dask.process_implementations.exceptions import (
+from openeo_processes_dask_slim.process_implementations.cubes.utils import notnull
+from openeo_processes_dask_slim.process_implementations.data_model import RasterCube
+from openeo_processes_dask_slim.process_implementations.exceptions import (
     DimensionLabelCountMismatch,
     DimensionMismatch,
     LabelMismatch,
 )
-from openeo_processes_dask.process_implementations.logic import _not
+from openeo_processes_dask_slim.process_implementations.logic import _not
 
 logger = logging.getLogger(__name__)
 

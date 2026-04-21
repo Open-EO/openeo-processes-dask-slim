@@ -5,7 +5,7 @@ import dask.array as da
 import numpy as np
 import pyproj
 
-from openeo_processes_dask.process_implementations.data_model import RasterCube
+from openeo_processes_dask_slim.process_implementations.data_model import RasterCube
 
 
 def _get_crs(cube):

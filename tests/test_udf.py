@@ -3,7 +3,7 @@ import openeo
 import pytest
 import xarray as xr
 
-from openeo_processes_dask.process_implementations.udf.udf import run_udf
+from openeo_processes_dask_slim.process_implementations.udf.udf import run_udf
 from tests.general_checks import general_output_checks
 from tests.mockdata import create_fake_rastercube
 

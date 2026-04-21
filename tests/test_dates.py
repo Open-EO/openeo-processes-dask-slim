@@ -1,4 +1,4 @@
-from openeo_processes_dask.process_implementations.dates import (
+from openeo_processes_dask_slim.process_implementations.dates import (
     date_between,
     date_difference,
     date_shift,

@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from openeo_processes_dask.process_implementations.cubes.indices import ndvi
-from openeo_processes_dask.process_implementations.exceptions import (
+from openeo_processes_dask_slim.process_implementations.cubes.indices import ndvi
+from openeo_processes_dask_slim.process_implementations.exceptions import (
     BandExists,
     DimensionAmbiguous,
     NirBandAmbiguous,

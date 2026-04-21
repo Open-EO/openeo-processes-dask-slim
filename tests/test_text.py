@@ -1,6 +1,6 @@
 import pytest
 
-from openeo_processes_dask.process_implementations.text import *
+from openeo_processes_dask_slim.process_implementations.text import *
 
 
 @pytest.mark.parametrize(

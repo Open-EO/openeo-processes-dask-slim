@@ -7,8 +7,10 @@ from odc.geo.geobox import resolution_from_affine
 from openeo_pg_parser_networkx.pg_schema import ParameterReference, TemporalInterval
 from pyproj.crs import CRS
 
-from openeo_processes_dask.process_implementations.cubes.reduce import reduce_dimension
-from openeo_processes_dask.process_implementations.cubes.resample import (
+from openeo_processes_dask_slim.process_implementations.cubes.reduce import (
+    reduce_dimension,
+)
+from openeo_processes_dask_slim.process_implementations.cubes.resample import (
     resample_cube_spatial,
     resample_cube_temporal,
     resample_spatial,

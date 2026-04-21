@@ -8,10 +8,10 @@ import numpy as np
 import xarray as xr
 from xgboost.core import Booster
 
-from openeo_processes_dask.process_implementations.cubes.experimental import (
+from openeo_processes_dask_slim.process_implementations.cubes.experimental import (
     load_vector_cube,
 )
-from openeo_processes_dask.process_implementations.data_model import (
+from openeo_processes_dask_slim.process_implementations.data_model import (
     RasterCube,
     VectorCube,
 )

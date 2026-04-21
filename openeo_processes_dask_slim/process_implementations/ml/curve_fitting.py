@@ -6,9 +6,9 @@ import pandas as pd
 import xarray as xr
 from numpy.typing import ArrayLike
 
-from openeo_processes_dask.process_implementations.cubes import apply_dimension
-from openeo_processes_dask.process_implementations.data_model import RasterCube
-from openeo_processes_dask.process_implementations.exceptions import (
+from openeo_processes_dask_slim.process_implementations.cubes import apply_dimension
+from openeo_processes_dask_slim.process_implementations.data_model import RasterCube
+from openeo_processes_dask_slim.process_implementations.exceptions import (
     DimensionNotAvailable,
 )
 

@@ -7,7 +7,7 @@ import dask_geopandas
 import geopandas as gpd
 from openeo_pg_parser_networkx.pg_schema import DEFAULT_CRS
 
-from openeo_processes_dask.process_implementations.data_model import VectorCube
+from openeo_processes_dask_slim.process_implementations.data_model import VectorCube
 
 logger = logging.getLogger(__name__)
 
