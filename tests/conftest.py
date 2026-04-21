@@ -15,9 +15,10 @@ from openeo_pg_parser_networkx.pg_schema import (
     BoundingBox,
     TemporalInterval,
 )
+from shapely.geometry import Polygon
+
 from openeo_processes_dask_slim.process_implementations.core import process
 from openeo_processes_dask_slim.process_implementations.data_model import VectorCube
-from shapely.geometry import Polygon
 
 logger = logging.getLogger(__name__)
 
