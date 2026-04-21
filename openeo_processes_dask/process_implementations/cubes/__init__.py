@@ -4,9 +4,7 @@ from .apply import *
 from .apply_neighborhood_intertwin import *
 from .general import *
 from .indices import *
-from .load import *
 from .mask import *
-from .mask_polygon import *
 from .merge import *
 from .reduce import *
 from .resample import *

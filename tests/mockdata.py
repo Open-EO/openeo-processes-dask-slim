@@ -54,7 +54,9 @@ def create_fake_rastercube(
         coords=coords,
         attrs={"crs": spatial_extent.crs},
     )
-    raster_cube.rio.write_crs(spatial_extent.crs, inplace=True)
+    import odc.geo.xr
+
+    raster_cube = odc.geo.xr.assign_crs(raster_cube, crs=spatial_extent.crs)
 
     if "dask" in backend:
         import dask.array as da

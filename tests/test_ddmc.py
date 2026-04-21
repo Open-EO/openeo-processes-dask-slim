@@ -9,7 +9,6 @@ from openeo_pg_parser_networkx.pg_schema import (
     TemporalInterval,
 )
 
-from openeo_processes_dask.process_implementations.cubes.load import load_stac
 from openeo_processes_dask.process_implementations.cubes.reduce import (
     reduce_dimension,
     reduce_spatial,

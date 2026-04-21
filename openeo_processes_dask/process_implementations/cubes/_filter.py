@@ -7,15 +7,10 @@ import dask.array as da
 import geopandas as gpd
 import numpy as np
 import pyproj
-import rasterio
-import rioxarray
 import shapely
 import xarray as xr
 from openeo_pg_parser_networkx.pg_schema import BoundingBox, TemporalInterval
 
-from openeo_processes_dask.process_implementations.cubes.mask_polygon import (
-    mask_polygon,
-)
 from openeo_processes_dask.process_implementations.data_model import RasterCube
 from openeo_processes_dask.process_implementations.exceptions import (
     BandFilterParameterMissing,
@@ -35,7 +30,6 @@ __all__ = [
     "filter_temporal",
     "filter_bands",
     "filter_bbox",
-    "filter_spatial",
 ]
 
 
@@ -149,31 +143,16 @@ def filter_bands(data: RasterCube, bands: list[str] = None) -> RasterCube:
     return data
 
 
-def filter_spatial(data: RasterCube, geometries) -> RasterCube:
-    if "type" in geometries and geometries["type"] == "FeatureCollection":
-        gdf = gpd.GeoDataFrame.from_features(geometries, DEFAULT_CRS)
-    elif "type" in geometries and geometries["type"] in ["Polygon"]:
-        polygon = shapely.geometry.Polygon(geometries["coordinates"][0])
-        gdf = gpd.GeoDataFrame(geometry=[polygon])
-        gdf.crs = DEFAULT_CRS
-
-    bbox = gdf.total_bounds
-    spatial_extent = BoundingBox(
-        west=bbox[0], east=bbox[2], south=bbox[1], north=bbox[3]
-    )
-
-    data = filter_bbox(data, spatial_extent)
-    data = mask_polygon(data, geometries)
-
-    return data
-
-
 def filter_bbox(data: RasterCube, extent: BoundingBox) -> RasterCube:
     try:
-        input_crs = str(data.rio.crs)
+        odc_crs = data.odc.crs
+        if odc_crs is not None:
+            input_crs = str(odc_crs)
+        else:
+            input_crs = data.attrs.get("crs", None)
     except Exception as e:
         raise Exception(f"Not possible to estimate the input data projection! {e}")
-    if not pyproj.crs.CRS(extent.crs).equals(input_crs):
+    if input_crs is not None and not pyproj.crs.CRS(extent.crs).equals(input_crs):
         reprojected_extent = _reproject_bbox(extent, input_crs)
     else:
         reprojected_extent = extent

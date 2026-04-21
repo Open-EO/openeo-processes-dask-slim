@@ -14,13 +14,16 @@ __all__ = ["run_udf"]
 def run_udf(
     data: da.Array, udf: str, runtime: str, context: Optional[dict] = None
 ) -> RasterCube:
-    data = XarrayDataCube(xr.DataArray(data))
-    data = UdfData(datacube_list=[data], user_context=context)
-    result = run_udf_code(code=udf, data=data)
+    input_attrs = data.attrs if isinstance(data, xr.DataArray) else {}
+    udf_input = XarrayDataCube(xr.DataArray(data))
+    udf_data = UdfData(datacube_list=[udf_input], user_context=context)
+    result = run_udf_code(code=udf, data=udf_data)
     cubes = result.get_datacube_list()
     if len(cubes) != 1:
         raise ValueError(
             f"The provided UDF should return one datacube, but got: {result}"
         )
     result_array: xr.DataArray = cubes[0].array
+    if not result_array.attrs:
+        result_array.attrs = input_attrs
     return result_array
