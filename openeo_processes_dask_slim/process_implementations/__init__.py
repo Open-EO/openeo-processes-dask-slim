@@ -23,4 +23,4 @@ try:
 except ImportError as e:
     logger.warning("Did not load experimental processes.")
 
-import openeo_processes_dask.process_implementations.cubes._xr_interop
+import openeo_processes_dask_slim.process_implementations.cubes._xr_interop

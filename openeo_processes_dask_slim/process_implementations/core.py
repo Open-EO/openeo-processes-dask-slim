@@ -5,7 +5,7 @@ from functools import wraps
 from typing import Optional
 
 from openeo_pg_parser_networkx.pg_schema import ParameterReference
-from openeo_processes_dask.process_implementations.exceptions import (
+from openeo_processes_dask_slim.process_implementations.exceptions import (
     ProcessParameterMissing,
 )
 
@@ -96,7 +96,7 @@ def process(f):
 standard_processes = [
     func
     for _, func in inspect.getmembers(
-        importlib.import_module("openeo_processes_dask.process_implementations"),
+        importlib.import_module("openeo_processes_dask_slim.process_implementations"),
         inspect.isfunction,
     )
 ]

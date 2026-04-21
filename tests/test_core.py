@@ -1,7 +1,7 @@
 import pytest
 from openeo_pg_parser_networkx.pg_schema import ParameterReference
-from openeo_processes_dask.process_implementations.core import process
-from openeo_processes_dask.process_implementations.exceptions import (
+from openeo_processes_dask_slim.process_implementations.core import process
+from openeo_processes_dask_slim.process_implementations.exceptions import (
     ProcessParameterMissing,
 )
 

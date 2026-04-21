@@ -5,9 +5,9 @@ import numpy as np
 import pytest
 import xarray as xr
 from openeo_pg_parser_networkx.pg_schema import ParameterReference
-from openeo_processes_dask.process_implementations.cubes import *
-from openeo_processes_dask.process_implementations.cubes.utils import isnull
-from openeo_processes_dask.process_implementations.logic import *
+from openeo_processes_dask_slim.process_implementations.cubes import *
+from openeo_processes_dask_slim.process_implementations.cubes.utils import isnull
+from openeo_processes_dask_slim.process_implementations.logic import *
 
 from tests.general_checks import general_output_checks
 from tests.mockdata import create_fake_rastercube
@@ -128,9 +128,9 @@ def test_reduce_dimension(
         backend="dask",
     )
 
-    input_cube[
-        :, :, :, 0
-    ] = True  # set all values in the first band to True - any() over bands will return True (ones_like)
+    input_cube[:, :, :, 0] = (
+        True  # set all values in the first band to True - any() over bands will return True (ones_like)
+    )
     _process = partial(
         process_registry["any"].implementation,
         ignore_nodata=False,
@@ -147,9 +147,9 @@ def test_reduce_dimension(
     assert isinstance(output_cube.data, da.Array)
     xr.testing.assert_equal(output_cube, xr.ones_like(output_cube))
 
-    input_cube[
-        :, :, :, 1
-    ] = False  # set all values in the second band to False - all() over bands will return False (zeros_like)
+    input_cube[:, :, :, 1] = (
+        False  # set all values in the second band to False - all() over bands will return False (zeros_like)
+    )
     _process = partial(
         process_registry["all"].implementation,
         ignore_nodata=False,

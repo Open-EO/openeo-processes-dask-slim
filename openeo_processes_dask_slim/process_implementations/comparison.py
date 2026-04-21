@@ -3,11 +3,11 @@ from typing import Optional
 import dask.array as da
 import numpy as np
 from numpy.typing import ArrayLike
-from openeo_processes_dask.process_implementations.cubes.utils import (
+from openeo_processes_dask_slim.process_implementations.cubes.utils import (
     _is_dask_array,
     notnull,
 )
-from openeo_processes_dask.process_implementations.utils import get_scalar_type
+from openeo_processes_dask_slim.process_implementations.utils import get_scalar_type
 
 __all__ = [
     "is_infinite",

@@ -84,9 +84,9 @@ This repo makes use of [pre-commit](https://pre-commit.com/) hooks to enforce li
 
 ### Specs
 
-The json specs for the individual processes are tracked as a git submodule in `openeo_processes_dask/specs/openeo-processes`.
-The raw json for a specific process can be imported using `from openeo_processes_dask.specs import reduce_dimension`.
+The json specs for the individual processes are tracked as a git submodule in `openeo_processes_dask_slim/specs/openeo-processes`.
+The raw json for a specific process can be imported using `from openeo_processes_dask_slim.specs import reduce_dimension`.
 
 To bump these specs to a later version use:
-`git -C openeo_processes_dask/specs/openeo-processes checkout <tag>`
-`git add openeo_processes_dask/specs/openeo-processes`
+`git -C openeo_processes_dask_slim/specs/openeo-processes checkout <tag>`
+`git add openeo_processes_dask_slim/specs/openeo-processes`

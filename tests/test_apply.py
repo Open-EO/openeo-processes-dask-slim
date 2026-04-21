@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 import xarray as xr
 from openeo_pg_parser_networkx.pg_schema import ParameterReference
-from openeo_processes_dask.process_implementations.cubes.apply import (
+from openeo_processes_dask_slim.process_implementations.cubes.apply import (
     apply,
     apply_dimension,
     apply_kernel,
