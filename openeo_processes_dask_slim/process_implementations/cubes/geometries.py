@@ -7,7 +7,6 @@ import numpy as np
 import shapely
 import xarray as xr
 import xvec
-
 from openeo_processes_dask.process_implementations.data_model import VectorCube
 from openeo_processes_dask.process_implementations.exceptions import (
     DimensionNotAvailable,

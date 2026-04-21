@@ -4,7 +4,6 @@ import pytest
 import shapely
 import xarray as xr
 import xvec
-
 from openeo_processes_dask.process_implementations.cubes.geometries import *
 from openeo_processes_dask.process_implementations.exceptions import UnitMismatch
 

@@ -8,7 +8,6 @@ from openeo_pg_parser_networkx.pg_schema import (
     ParameterReference,
     TemporalInterval,
 )
-
 from openeo_processes_dask.process_implementations.cubes.reduce import (
     reduce_dimension,
     reduce_spatial,
@@ -17,6 +16,7 @@ from openeo_processes_dask.process_implementations.exceptions import (
     ArrayElementNotAvailable,
 )
 from openeo_processes_dask.process_implementations.experimental.ddmc import ddmc
+
 from tests.general_checks import general_output_checks
 from tests.mockdata import create_fake_rastercube
 

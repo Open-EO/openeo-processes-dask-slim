@@ -5,7 +5,6 @@ from functools import wraps
 from typing import Optional
 
 from openeo_pg_parser_networkx.pg_schema import ParameterReference
-
 from openeo_processes_dask.process_implementations.exceptions import (
     ProcessParameterMissing,
 )

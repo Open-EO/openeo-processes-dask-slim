@@ -1,11 +1,11 @@
 import numpy as np
 import pytest
-
 from openeo_processes_dask.process_implementations.cubes.general import *
 from openeo_processes_dask.process_implementations.exceptions import (
     DimensionLabelCountMismatch,
     DimensionNotAvailable,
 )
+
 from tests.general_checks import general_output_checks
 from tests.mockdata import create_fake_rastercube
 

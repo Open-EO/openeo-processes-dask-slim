@@ -3,8 +3,8 @@ import logging
 import numpy as np
 import pytest
 import xarray as xr
-
 from openeo_processes_dask.process_implementations.inspect import inspect
+
 from tests.mockdata import create_fake_rastercube
 
 

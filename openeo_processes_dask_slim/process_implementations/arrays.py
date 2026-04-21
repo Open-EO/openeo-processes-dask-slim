@@ -9,8 +9,6 @@ import pandas as pd
 import xarray as xr
 from numpy.typing import ArrayLike
 from openeo_pg_parser_networkx.pg_schema import DateTime
-from xarray.core.duck_array_ops import isnull, notnull
-
 from openeo_processes_dask.process_implementations.comparison import is_valid
 from openeo_processes_dask.process_implementations.cubes.utils import _is_dask_array
 from openeo_processes_dask.process_implementations.exceptions import (
@@ -23,6 +21,7 @@ from openeo_processes_dask.process_implementations.exceptions import (
     LabelExists,
     TooManyDimensions,
 )
+from xarray.core.duck_array_ops import isnull, notnull
 
 logger = logging.getLogger(__name__)
 

@@ -5,7 +5,6 @@ import odc.geo.xr
 import pandas as pd
 import xarray as xr
 from numpy.typing import ArrayLike
-
 from openeo_processes_dask.process_implementations.cubes import apply_dimension
 from openeo_processes_dask.process_implementations.data_model import RasterCube
 from openeo_processes_dask.process_implementations.exceptions import (

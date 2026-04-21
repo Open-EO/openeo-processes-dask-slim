@@ -2,7 +2,6 @@ from typing import Optional, Union
 
 import numpy as np
 from numpy.typing import ArrayLike
-
 from openeo_processes_dask.process_implementations.cubes.utils import isnull, notnull
 
 __all__ = ["_and", "_or", "xor", "_not", "_if", "_any", "_all"]

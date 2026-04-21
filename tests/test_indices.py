@@ -1,6 +1,5 @@
 import numpy as np
 import pytest
-
 from openeo_processes_dask.process_implementations.cubes.indices import ndvi
 from openeo_processes_dask.process_implementations.exceptions import (
     BandExists,
@@ -8,6 +7,7 @@ from openeo_processes_dask.process_implementations.exceptions import (
     NirBandAmbiguous,
     RedBandAmbiguous,
 )
+
 from tests.general_checks import general_output_checks
 from tests.mockdata import create_fake_rastercube
 

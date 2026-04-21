@@ -1,5 +1,4 @@
 import pytest
-
 from openeo_processes_dask.process_implementations.text import *
 
 

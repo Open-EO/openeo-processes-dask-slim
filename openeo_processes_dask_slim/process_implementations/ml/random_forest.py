@@ -6,8 +6,6 @@ import dask_geopandas
 import geopandas as gpd
 import numpy as np
 import xarray as xr
-from xgboost.core import Booster
-
 from openeo_processes_dask.process_implementations.cubes.experimental import (
     load_vector_cube,
 )
@@ -15,6 +13,7 @@ from openeo_processes_dask.process_implementations.data_model import (
     RasterCube,
     VectorCube,
 )
+from xgboost.core import Booster
 
 __all__ = ["fit_regr_random_forest", "predict_random_forest"]
 
