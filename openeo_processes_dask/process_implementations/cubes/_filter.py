@@ -145,10 +145,14 @@ def filter_bands(data: RasterCube, bands: list[str] = None) -> RasterCube:
 
 def filter_bbox(data: RasterCube, extent: BoundingBox) -> RasterCube:
     try:
-        input_crs = str(data.odc.crs)
+        odc_crs = data.odc.crs
+        if odc_crs is not None:
+            input_crs = str(odc_crs)
+        else:
+            input_crs = data.attrs.get("crs", None)
     except Exception as e:
         raise Exception(f"Not possible to estimate the input data projection! {e}")
-    if not pyproj.crs.CRS(extent.crs).equals(input_crs):
+    if input_crs is not None and not pyproj.crs.CRS(extent.crs).equals(input_crs):
         reprojected_extent = _reproject_bbox(extent, input_crs)
     else:
         reprojected_extent = extent

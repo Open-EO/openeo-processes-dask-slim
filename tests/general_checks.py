@@ -3,8 +3,16 @@ from typing import List
 
 import dask.array as da
 import numpy as np
+import pyproj
 
 from openeo_processes_dask.process_implementations.data_model import RasterCube
+
+
+def _get_crs(cube):
+    crs = cube.odc.crs
+    if crs is None and "crs" in cube.attrs:
+        return pyproj.CRS(cube.attrs["crs"])
+    return crs
 
 
 def general_output_checks(
@@ -22,7 +30,7 @@ def general_output_checks(
     assert output_cube.openeo is not None
 
     if verify_crs:
-        assert input_cube.odc.crs == output_cube.odc.crs
+        assert _get_crs(input_cube) == _get_crs(output_cube)
 
     if verify_attrs:
         assert input_cube.attrs == output_cube.attrs

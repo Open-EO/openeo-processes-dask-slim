@@ -77,6 +77,7 @@ def apply_dimension(
             "context": context,
         },
         exclude_dims={dimension},
+        keep_attrs=True,
     )
 
     reordered_result = result.transpose(*data.dims, ...)
@@ -166,4 +167,6 @@ def apply_kernel(
         mode = openeo_scipy_modes[border]
         cval = 0
 
-    return convolve(data, kernel, mode, cval, replace_invalid) * factor
+    result = convolve(data, kernel, mode, cval, replace_invalid) * factor
+    result.attrs = data.attrs
+    return result
