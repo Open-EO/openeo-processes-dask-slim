@@ -239,13 +239,93 @@ def aggregate_temporal_period(
     }
 
     if period in periods_to_frequency.keys():
-        frequency = periods_to_frequency[period]
-        resampled_data = data.resample({applicable_temporal_dimension: frequency})
+        times = data[applicable_temporal_dimension].values
+
+        if period == "hour":
+            group_keys = times.astype("datetime64[h]").astype("datetime64[us]")
+            t_min = times.min().astype("datetime64[h]")
+            t_max = times.max().astype("datetime64[h]")
+            all_periods = np.arange(
+                t_min, t_max + np.timedelta64(1, "h"), np.timedelta64(1, "h")
+            ).astype("datetime64[us]")
+        elif period == "day":
+            group_keys = times.astype("datetime64[D]").astype("datetime64[us]")
+            t_min = times.min().astype("datetime64[D]")
+            t_max = times.max().astype("datetime64[D]")
+            all_periods = np.arange(
+                t_min, t_max + np.timedelta64(1, "D"), np.timedelta64(1, "D")
+            ).astype("datetime64[us]")
+        elif period == "week":
+            days = times.astype("datetime64[D]").astype(int)
+            weekday = (days + 3) % 7
+            monday_int = days - weekday
+            group_keys = monday_int.astype("datetime64[D]").astype("datetime64[us]")
+            all_periods = (
+                np.arange(monday_int.min(), monday_int.max() + 7, 7)
+                .astype("datetime64[D]")
+                .astype("datetime64[us]")
+            )
+        elif period == "month":
+            months_int = times.astype("datetime64[M]").astype(int)
+            group_keys = months_int.astype("datetime64[M]").astype("datetime64[us]")
+            all_periods = (
+                np.arange(months_int.min(), months_int.max() + 1)
+                .astype("datetime64[M]")
+                .astype("datetime64[us]")
+            )
+        elif period == "season":
+            months_int = times.astype("datetime64[M]").astype(int)
+            month_in_year = months_int % 12
+            year = months_int // 12 + 1970
+            season_month = np.where(
+                month_in_year == 11,
+                11,
+                np.where(
+                    month_in_year <= 1,
+                    11,
+                    np.where(month_in_year <= 4, 2, np.where(month_in_year <= 7, 5, 8)),
+                ),
+            )
+            season_year = np.where(month_in_year <= 1, year - 1, year)
+            group_keys = np.array(
+                [
+                    np.datetime64(f"{y:04d}-{m+1:02d}", "M").astype("datetime64[us]")
+                    for y, m in zip(season_year, season_month)
+                ]
+            )
+            min_m = group_keys.min().astype("datetime64[M]").astype(int)
+            max_m = group_keys.max().astype("datetime64[M]").astype(int)
+            season_start_months = {2, 5, 8, 11}
+            all_periods = np.array(
+                [
+                    np.datetime64(
+                        f"{(m // 12 + 1970):04d}-{(m % 12 + 1):02d}", "M"
+                    ).astype("datetime64[us]")
+                    for m in range(min_m, max_m + 1)
+                    if m % 12 in season_start_months
+                ]
+            )
+        elif period == "year":
+            years_int = times.astype("datetime64[Y]").astype(int)
+            group_keys = years_int.astype("datetime64[Y]").astype("datetime64[us]")
+            all_periods = (
+                np.arange(years_int.min(), years_int.max() + 1)
+                .astype("datetime64[Y]")
+                .astype("datetime64[us]")
+            )
+
+        label_da = xr.DataArray(
+            group_keys,
+            dims=[applicable_temporal_dimension],
+            name=applicable_temporal_dimension,
+        )
+        label_da = label_da.drop_vars(applicable_temporal_dimension, errors="ignore")
 
         positional_parameters = {"data": 0}
-        return resampled_data.reduce(
+        result = data.groupby(label_da).reduce(
             reducer, keep_attrs=True, positional_parameters=positional_parameters
         )
+        return result.reindex({applicable_temporal_dimension: all_periods})
 
     else:
         intervals, labels = get_intervals(data, period)
