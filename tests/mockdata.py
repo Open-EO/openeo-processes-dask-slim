@@ -36,16 +36,11 @@ def create_fake_rastercube(
         step=len_y / data.shape[1],
     )
 
-    # This line raises a deprecation warning, which according to this thread
-    # will never actually be deprecated:
-    # https://github.com/numpy/numpy/issues/23904
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore", category=DeprecationWarning)
-        t_coords = pd.date_range(
-            start=np.datetime64(temporal_extent.root[0].root),
-            end=np.datetime64(temporal_extent.root[1].root),
-            periods=data.shape[2],
-        ).values
+    t_coords = pd.date_range(
+        start=pd.Timestamp(temporal_extent.root[0].root),
+        end=pd.Timestamp(temporal_extent.root[1].root),
+        periods=data.shape[2],
+    ).values
 
     coords = {"x": x_coords, "y": y_coords, "t": t_coords, "bands": bands}
 
