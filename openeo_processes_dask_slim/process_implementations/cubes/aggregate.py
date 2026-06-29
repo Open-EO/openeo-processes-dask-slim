@@ -241,7 +241,9 @@ def aggregate_temporal_period(
     if period in periods_to_frequency.keys():
         frequency = periods_to_frequency[period]
 
-        data = data.convert_calendar("standard", use_cftime=True)
+        data = data.convert_calendar(
+            "standard", use_cftime=True, dim=applicable_temporal_dimension
+        )
 
         resampled_data = data.resample({applicable_temporal_dimension: frequency})
 
