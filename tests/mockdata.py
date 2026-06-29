@@ -40,7 +40,7 @@ def create_fake_rastercube(
         start=pd.Timestamp(temporal_extent.root[0].root),
         end=pd.Timestamp(temporal_extent.root[1].root),
         periods=data.shape[2],
-    ).values
+    ).values.astype("datetime64[ns]")
 
     coords = {"x": x_coords, "y": y_coords, "t": t_coords, "bands": bands}
 
