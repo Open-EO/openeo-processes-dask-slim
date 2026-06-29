@@ -36,11 +36,13 @@ def create_fake_rastercube(
         step=len_y / data.shape[1],
     )
 
-    t_coords = pd.date_range(
-        start=pd.Timestamp(temporal_extent.root[0].root),
-        end=pd.Timestamp(temporal_extent.root[1].root),
-        periods=data.shape[2],
-    ).values.astype("datetime64[ns]")
+    t_start = np.datetime64(str(temporal_extent.root[0].root), "us")
+    t_end = np.datetime64(str(temporal_extent.root[1].root), "us")
+    t_coords = (
+        np.linspace(t_start.astype(np.int64), t_end.astype(np.int64), data.shape[2])
+        .astype(np.int64)
+        .astype("datetime64[us]")
+    )
 
     coords = {"x": x_coords, "y": y_coords, "t": t_coords, "bands": bands}
 

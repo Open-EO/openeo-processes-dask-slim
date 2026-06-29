@@ -233,24 +233,17 @@ def aggregate_temporal_period(
         "hour": "h",
         "day": "D",
         "week": "W",
-        "month": "M",
-        "season": "Q-DEC",
-        "year": "Y",
+        "month": "ME",
+        "season": "QS-DEC",
+        "year": "YS",
     }
 
     if period in periods_to_frequency.keys():
         frequency = periods_to_frequency[period]
-        time_ns = pd.DatetimeIndex(data[applicable_temporal_dimension].values).as_unit(
-            "ns"
-        )
-        group_keys = time_ns.to_period(frequency).to_timestamp()
-        label_da = xr.DataArray(
-            group_keys,
-            dims=[applicable_temporal_dimension],
-            name=applicable_temporal_dimension,
-        )
+        resampled_data = data.resample({applicable_temporal_dimension: frequency})
+
         positional_parameters = {"data": 0}
-        return data.groupby(label_da).reduce(
+        return resampled_data.reduce(
             reducer, keep_attrs=True, positional_parameters=positional_parameters
         )
 
