@@ -248,6 +248,8 @@ def aggregate_temporal_period(
         positional_parameters = {"data": 0}
         return resampled_data.reduce(
             reducer, keep_attrs=True, positional_parameters=positional_parameters
+        ).convert_calendar(
+            "standard", use_cftime=False, dim=applicable_temporal_dimension
         )
 
     else:
