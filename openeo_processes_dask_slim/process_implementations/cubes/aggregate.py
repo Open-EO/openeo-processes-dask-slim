@@ -241,11 +241,7 @@ def aggregate_temporal_period(
     if period in periods_to_frequency.keys():
         frequency = periods_to_frequency[period]
 
-        times_ns = pd.DatetimeIndex(data[applicable_temporal_dimension].values).as_unit(
-            "ns"
-        )
-
-        data[applicable_temporal_dimension] = times_ns
+        data = data.convert_calendar("standard", use_cftime=True)
 
         resampled_data = data.resample({applicable_temporal_dimension: frequency})
 
