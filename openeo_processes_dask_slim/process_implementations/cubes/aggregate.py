@@ -240,6 +240,11 @@ def aggregate_temporal_period(
 
     if period in periods_to_frequency.keys():
         frequency = periods_to_frequency[period]
+
+        data[applicable_temporal_dimension] = (
+            data[applicable_temporal_dimension].astype("datetime64[ns]").values
+        )
+
         resampled_data = data.resample({applicable_temporal_dimension: frequency})
 
         positional_parameters = {"data": 0}
