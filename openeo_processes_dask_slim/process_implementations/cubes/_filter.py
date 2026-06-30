@@ -96,9 +96,9 @@ def filter_temporal(
         t = data[applicable_temporal_dimension].values
         mask = np.ones(len(t), dtype=bool)
         if start_time is not None:
-            mask = mask & t >= start_time
+            mask = np.logical_and(mask, t >= start_time)
         if end_time is not None:
-            mask = mask & t <= end_time
+            mask = np.logical_and(mask, t <= end_time)
         filtered = data.isel({applicable_temporal_dimension: mask})
 
     return filtered
