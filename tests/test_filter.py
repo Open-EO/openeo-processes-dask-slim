@@ -3,7 +3,6 @@ import datetime
 from functools import partial
 
 import numpy as np
-import pandas as pd
 import pytest
 import xarray as xr
 from openeo_pg_parser_networkx.pg_schema import ParameterReference, TemporalInterval
@@ -70,7 +69,7 @@ def test_filter_temporal(temporal_interval, bounding_box, random_raster_data):
     )
 
     new_coords = list(copy.deepcopy(input_cube.coords["t"].data))
-    new_coords[1] = pd.NaT
+    new_coords[1] = np.datetime64("NaT", "us")
     invalid_input_cube = input_cube.assign_coords({"t": np.array(new_coords)})
     filter_temporal(invalid_input_cube, temporal_interval)
 

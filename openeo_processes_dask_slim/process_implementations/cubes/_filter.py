@@ -93,9 +93,13 @@ def filter_temporal(
             )
 
         data = data.where(~np.isnat(data[applicable_temporal_dimension]), drop=True)
-        filtered = data.loc[
-            {applicable_temporal_dimension: slice(start_time, end_time)}
-        ]
+        t = data[applicable_temporal_dimension].values
+        mask = np.ones(len(t), dtype=bool)
+        if start_time is not None:
+            mask = np.logical_and(mask, t >= start_time)
+        if end_time is not None:
+            mask = np.logical_and(mask, t <= end_time)
+        filtered = data.isel({applicable_temporal_dimension: mask})
 
     return filtered
 

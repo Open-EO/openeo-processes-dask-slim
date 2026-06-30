@@ -263,7 +263,6 @@ def test_apply_dimension_filter_processes(
         process=_process_filter,
         dimension="bands",
     )
-    print(output_cube)
     assert output_cube.shape <= input_cube.shape
 
 
